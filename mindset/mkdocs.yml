@@ -1,0 +1,26 @@
+site_name: Embedded Security
+theme: 
+   name: material
+   features:
+      -  search.suggest
+      -  search.highlight
+      -  content.tabs.link
+   plugins:
+     - search
+   palette: 
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+
+nav:
+- Home  : "https://embeddednext.github.io/tech"
+- Altium : "index.md"
+- PI MX8 :
+  - Introduction and Overview : "ch1.md"
