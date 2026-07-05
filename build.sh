@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create the embeddednext.github.io directory two levels up
-mkdir -p ../../embeddednext.github.io
+# mkdir -p ../embeddednext.github.io
 
 # Loop through all directories in current folder
 for dir in */; do

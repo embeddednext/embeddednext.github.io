@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp index.html ../tech/index.html
+cp index.html ../embeddednext.github.io/index.html
