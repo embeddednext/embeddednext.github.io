@@ -1,306 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Field Notes — a markdown blog</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
-<style>
-  :root{
-    --paper:#f7f4ec;
-    --ink:#2b2a28;
-    --ink-soft:#6b675f;
-    --rule:#d8d2c2;
-    --accent:#b5792c;
-    --panel:#ffffff;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;
-    min-height:100vh;
-  }
-  header{
-    padding:2.4rem 2rem 1.4rem;
-    text-align:center;
-    border-bottom:1px solid var(--rule);
-  }
-  header .eyebrow{
-    font-family:'Courier New',monospace;
-    font-size:.75rem;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:var(--accent);
-  }
-  header h1{
-    margin:.4rem 0 .2rem;
-    font-size:2.4rem;
-    font-weight:600;
-  }
-  header p{
-    margin:0;
-    color:var(--ink-soft);
-    font-size:.95rem;
-    font-family:Georgia,serif;
-  }
-  .layout{
-    display:grid;
-    grid-template-columns:260px 1fr;
-    max-width:1000px;
-    margin:0 auto;
-    min-height:70vh;
-  }
-  nav{
-    border-right:1px solid var(--rule);
-    padding:1.6rem 1rem;
-  }
-  nav .label{
-    font-family:'Courier New',monospace;
-    font-size:.7rem;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin:0 0 .8rem .6rem;
-  }
-  .entry{
-    display:block;
-    width:100%;
-    text-align:left;
-    background:none;
-    border:none;
-    padding:.7rem .6rem;
-    border-radius:6px;
-    cursor:pointer;
-    font-family:inherit;
-    color:var(--ink);
-  }
-  .entry .date{
-    display:block;
-    font-family:'Courier New',monospace;
-    font-size:.7rem;
-    color:var(--ink-soft);
-    margin-bottom:.15rem;
-  }
-  .entry .name{
-    font-size:1rem;
-  }
-  .entry:hover{background:#efe9d8;}
-  .entry.active{background:var(--accent);}
-  .entry.active .name,.entry.active .date{color:#fff;}
-
-  main{padding:2rem 2.6rem;}
-  .tabs{
-    display:flex;
-    gap:.4rem;
-    margin-bottom:1.4rem;
-    font-family:'Courier New',monospace;
-    font-size:.75rem;
-    text-transform:uppercase;
-    letter-spacing:.1em;
-  }
-  .tabs button{
-    background:none;
-    border:1px solid var(--rule);
-    padding:.4rem .8rem;
-    border-radius:20px;
-    cursor:pointer;
-    color:var(--ink-soft);
-    font-family:inherit;
-  }
-  .tabs button.active{
-    background:var(--ink);
-    color:var(--paper);
-    border-color:var(--ink);
-  }
-  #raw{
-    display:none;
-    width:100%;
-    min-height:420px;
-    font-family:'Courier New',monospace;
-    font-size:.85rem;
-    line-height:1.5;
-    padding:1rem;
-    border:1px solid var(--rule);
-    border-radius:8px;
-    background:var(--panel);
-    resize:vertical;
-    color:var(--ink);
-  }
-  #rendered{
-    background:var(--panel);
-    border:1px solid var(--rule);
-    border-radius:8px;
-    padding:1.6rem 2rem;
-    line-height:1.7;
-  }
-  #rendered h1,#rendered h2,#rendered h3{
-    font-family:Georgia,serif;
-    color:var(--ink);
-  }
-  #rendered h1{font-size:1.8rem;border-bottom:2px solid var(--accent);padding-bottom:.3rem;}
-  #rendered code{
-    background:#f0ead9;
-    padding:.1rem .35rem;
-    border-radius:4px;
-    font-size:.85em;
-  }
-  #rendered pre{
-    background:#232220;
-    color:#f2ede0;
-    padding:1rem;
-    border-radius:8px;
-    overflow-x:auto;
-  }
-  #rendered pre code{background:none;color:inherit;padding:0;}
-  #rendered blockquote{
-    border-left:3px solid var(--accent);
-    margin:1rem 0;
-    padding:.2rem 1rem;
-    color:var(--ink-soft);
-    font-style:italic;
-  }
-  #rendered a{color:var(--accent);}
-  footer{
-    text-align:center;
-    padding:1.4rem;
-    color:var(--ink-soft);
-    font-size:.8rem;
-  }
-  @media(max-width:680px){
-    .layout{grid-template-columns:1fr;}
-    nav{border-right:none;border-bottom:1px solid var(--rule);}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSet</title>
+    <!-- Importing Materialize CSS from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Custom styles -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .hero-section {
+            background: url('https://source.unsplash.com/1600x900/?nature,water') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.5rem;
+        }
+        .content-section {
+            padding: 50px 20px;
+        }
+        .content-section h2 {
+            margin-bottom: 20px;
+        }
+        .card-content {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">No. 003 — an editor's notebook</div>
-  <h1>Field Notes</h1>
-  <p>Short dispatches, written in Markdown, read as they were written.</p>
-</header>
+    <!-- Navbar -->
+    <nav class="nav-wrapper blue">
+        <div class="container">
+            <a href="#" class="brand-logo">MindSet</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#affirmations">Affirmations</a></li>
+                <li><a href="#mindset">MindSet</a></li>
+                <li><a href="#discipline">Discipline</a></li>
+                <li><a href="#business">Business</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<div class="layout">
-  <nav>
-    <p class="label">Entries</p>
-    <div id="entry-list"></div>
-  </nav>
-  <main>
-    <div class="tabs">
-      <button id="tab-preview" class="active">Preview</button>
-      <button id="tab-raw">Markdown source</button>
-    </div>
-    <textarea id="raw" spellcheck="false"></textarea>
-    <div id="rendered"></div>
-  </main>
-</div>
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div>
+            <h1 style="color: #2c3e50; font-size: 2.5rem; font-weight: bold;">MindSet</h1>
+            <p style="color: #34495e; font-size: 1.2rem;">Success begins with believing you can.</p>
+        </div>
+    </header>
 
-<footer>Edit the source tab and the preview updates instantly.</footer>
+    <section id="services" class="content-section grey lighten-3">
+        <div class="container">
+            <h2>Our Services</h2>
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">mindset matter</span>
+                            <p>Focus on progress, not perfection.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://www.embeddednext.github.io/mindset/">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-const posts = [
-  {
-    date: "2026-06-02",
-    title: "On writing things down",
-    md: `# On writing things down
+    <!-- Content Sections -->
+    <section id="affirmations" class="content-section">
+        <div class="container">
+            <h2>Bruce Lee Affirmations</h2>
+            <p>"I am the best."</p>
+            <p>"I can do it alone."</p>
+            <p>"God is always with me."</p>
+            <p>"I am a winner."</p>
+            <p>"Today is my day."</p>
+        </div>
+    </section>
 
-There is a particular relief in a blank Markdown file. No toolbar, no font
-picker — just a cursor and a hyphen for a bullet.
+    <section id="mindset" class="content-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or would like to get in touch, please contact us via email or phone.</p>
+        </div>
+    </section>
 
-## Why plain text wins
-
-- It outlives the app that made it
-- It diffs cleanly in version control
-- It reads fine in a terminal, a phone, or a printed page
-
-> The best editor is the one that gets out of your way.
-
-\`\`\`js
-console.log("still readable in 20 years");
-\`\`\`
-`
-  },
-  {
-    date: "2026-06-14",
-    title: "A short taxonomy of Tuesdays",
-    md: `# A short taxonomy of Tuesdays
-
-Some days announce themselves. Tuesdays rarely do.
-
-1. The catch-up Tuesday
-2. The quiet-panic Tuesday
-3. The surprisingly good Tuesday
-
-Most weeks land somewhere between **1** and **2**, with the occasional *3*
-arriving unannounced, like good weather.
-`
-  },
-  {
-    date: "2026-06-27",
-    title: "Notes on a slow coffee",
-    md: `# Notes on a slow coffee
-
-Pour-over, 1:16 ratio, water just off the boil.
-
-| Stage | Time | Water |
-|---|---|---|
-| Bloom | 0:00 | 40g |
-| First pour | 0:30 | 200g |
-| Second pour | 1:15 | 300g |
-
-Total brew time lands around **2:45** if the grind is right. If it's running
-fast, grind finer next time — don't fight it mid-pour.
-`
-  }
-];
-
-const listEl = document.getElementById('entry-list');
-const rawEl = document.getElementById('raw');
-const renderedEl = document.getElementById('rendered');
-const tabPreview = document.getElementById('tab-preview');
-const tabRaw = document.getElementById('tab-raw');
-
-let activeIndex = 0;
-
-function renderList(){
-  listEl.innerHTML = '';
-  posts.forEach((p, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'entry' + (i === activeIndex ? ' active' : '');
-    btn.innerHTML = `<span class="date">${p.date}</span><span class="name">${p.title}</span>`;
-    btn.onclick = () => { activeIndex = i; loadPost(); renderList(); };
-    listEl.appendChild(btn);
-  });
-}
-
-function loadPost(){
-  const p = posts[activeIndex];
-  rawEl.value = p.md;
-  renderedEl.innerHTML = marked.parse(p.md);
-}
-
-rawEl.addEventListener('input', () => {
-  renderedEl.innerHTML = marked.parse(rawEl.value);
-});
-
-tabPreview.onclick = () => {
-  tabPreview.classList.add('active');
-  tabRaw.classList.remove('active');
-  rawEl.style.display = 'none';
-  renderedEl.style.display = 'block';
-};
-tabRaw.onclick = () => {
-  tabRaw.classList.add('active');
-  tabPreview.classList.remove('active');
-  rawEl.style.display = 'block';
-  renderedEl.style.display = 'none';
-};
-
-renderList();
-loadPost();
-</script>
-
+    <!-- Importing Materialize JS from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Initialize any JavaScript components if needed -->
+    <script>
+        // Example: Initialize any JavaScript components here if needed
+    </script>
 </body>
 </html>
