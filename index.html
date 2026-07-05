@@ -1,97 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindSet</title>
-    <!-- Importing Materialize CSS from CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Custom styles -->
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .hero-section {
-            background: url('https://source.unsplash.com/1600x900/?nature,water') no-repeat center center;
-            background-size: cover;
-            color: #fff;
-            padding: 100px 0;
-            text-align: center;
-        }
-        .hero-section h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        .hero-section p {
-            font-size: 1.5rem;
-        }
-        .content-section {
-            padding: 50px 20px;
-        }
-        .content-section h2 {
-            margin-bottom: 20px;
-        }
-        .card-content {
-            padding: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindSet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12141c;
+    --panel:#1b1f2b;
+    --paper:#f3efe4;
+    --gold:#e0a83f;
+    --mute:#7c8496;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{
+    height:100%;
+    overflow:hidden;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+  }
+  body{
+    display:flex;
+    height:100vh;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    width:212px;
+    flex-shrink:0;
+    background:var(--panel);
+    border-right:1px solid rgba(224,168,63,0.12);
+    display:flex;
+    flex-direction:column;
+    padding:24px 18px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.2rem;
+    letter-spacing:0.5px;
+    color:var(--paper);
+    padding:0 8px 26px;
+  }
+  .brand span{ color:var(--gold); }
+  .side-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--mute);
+    padding:0 8px 10px;
+  }
+  .side-nav{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .side-nav a{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:9px 10px;
+    border-radius:6px;
+    color:var(--mute);
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:500;
+    transition:background .18s ease, color .18s ease;
+  }
+  .side-nav a svg{ width:16px; height:16px; flex-shrink:0; opacity:0.85; }
+  .side-nav a:hover{ background:rgba(224,168,63,0.08); color:var(--paper); }
+  .side-nav a.active{
+    background:rgba(224,168,63,0.14);
+    color:var(--gold);
+  }
+  .side-nav a.active svg{ opacity:1; }
+  .side-nav .soon{
+    margin-left:auto;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.55rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--mute);
+    opacity:0.7;
+  }
+  .sidebar-footer{
+    margin-top:auto;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:0 8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--mute);
+  }
+
+  .app{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+
+  /* MAIN VIEWS (full-swap, one active at a time) */
+  .view{
+    flex:1;
+    display:none;
+    min-height:0;
+    padding:28px 32px;
+  }
+  .view.active{ display:flex; }
+
+  /* HOME VIEW */
+  #view-home{
+    align-items:center;
+    justify-content:center;
+  }
+  .hero{
+    max-width:640px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .pulse{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 0 rgba(224,168,63,0.6);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(224,168,63,0.5); }
+    70%{ box-shadow:0 0 0 10px rgba(224,168,63,0); }
+    100%{ box-shadow:0 0 0 0 rgba(224,168,63,0); }
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+    max-width:11ch;
+    margin:0 auto;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+    font-weight:600;
+  }
+  .hero p{
+    margin:18px auto 0;
+    font-size:1rem;
+    color:var(--mute);
+    max-width:34ch;
+    line-height:1.55;
+  }
+  .cta-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin-top:28px;
+  }
+  .cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--ink);
+    padding:12px 20px;
+    border-radius:2px;
+    text-decoration:none;
+    font-weight:500;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(224,168,63,0.25); }
+  .cta-sub{
+    font-size:0.78rem;
+    color:var(--mute);
+  }
+
+  /* AFFIRMATIONS VIEW */
+  #view-affirmations{
+    align-items:center;
+    justify-content:center;
+  }
+  .panel{
+    background:var(--panel);
+    border-radius:14px;
+    padding:44px 56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(224,168,63,0.12);
+    max-width:520px;
+  }
+  .panel::before{
+    content:"";
+    position:absolute;
+    top:-40%; right:-30%;
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(224,168,63,0.18), transparent 70%);
+    pointer-events:none;
+  }
+  .panel-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:22px;
+  }
+  .affirm-list{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    width:100%;
+  }
+  .affirm-list li{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:1.3rem;
+    color:var(--paper);
+    padding-left:20px;
+    border-left:2px solid rgba(224,168,63,0.35);
+    line-height:1.3;
+    opacity:0;
+    animation:rise .6s ease forwards;
+  }
+  .affirm-list li:nth-child(1){ animation-delay:.1s; }
+  .affirm-list li:nth-child(2){ animation-delay:.25s; }
+  .affirm-list li:nth-child(3){ animation-delay:.4s; }
+  .affirm-list li:nth-child(4){ animation-delay:.55s; }
+  .affirm-list li:nth-child(5){ animation-delay:.7s; }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  footer{
+    flex-shrink:0;
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    color:var(--mute);
+    padding-bottom:14px;
+    text-transform:uppercase;
+  }
+
+  /* COMING SOON (BLACK) VIEW */
+  #view-quotes, #view-journal{
+    align-items:center;
+    justify-content:center;
+  }
+  .view-blank-inner{
+    flex:1;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+    border-radius:10px;
+    border:1px solid rgba(224,168,63,0.1);
+  }
+  .blank-inner{
+    text-align:center;
+  }
+  .blank-icon{
+    width:34px; height:34px;
+    margin:0 auto 16px;
+    color:var(--gold);
+    opacity:0.85;
+  }
+  .view-blank-inner h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.6rem;
+    color:var(--paper);
+    margin-bottom:8px;
+  }
+  .view-blank-inner p{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--mute);
+  }
+  .view-blank-inner p span{ color:var(--gold); }
+
+  @media (max-width:760px){
+    html,body{ overflow:auto; height:auto; }
+    body{ flex-direction:column; }
+    .sidebar{
+      width:100%;
+      flex-direction:row;
+      align-items:center;
+      overflow-x:auto;
+      padding:14px 16px;
+      border-right:none;
+      border-bottom:1px solid rgba(224,168,63,0.12);
+    }
+    .brand{ padding:0 16px 0 0; }
+    .side-label, .sidebar-footer{ display:none; }
+    .side-nav{ flex-direction:row; gap:6px; }
+    .side-nav a{ white-space:nowrap; }
+    .view{ padding:20px; }
+    .panel{ padding:28px; }
+    .hero{ padding-right:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .pulse, .affirm-list li{ animation:none; opacity:1; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="nav-wrapper blue">
-        <div class="container">
-            <a href="#" class="brand-logo">MindSet</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#affirmations">Affirmations</a></li>
-            </ul>
-        </div>
-    </nav>
+  <div class="sidebar">
+    <div class="brand">Mind<span>Set</span></div>
+    <div class="side-label">Menu</div>
+    <ul class="side-nav">
+      <li><a href="#home" data-view="home" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a></li>
+      <li><a href="#affirmations" data-view="affirmations">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v16l-5-3-5 3z"/></svg>
+        Affirmations
+      </a></li>
+      <li><a href="#quotes" data-view="quotes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h4v4c0 3-1.5 4.5-4 5"/><path d="M15 7h4v4c0 3-1.5 4.5-4 5"/></svg>
+        Quotes
+        <span class="soon">Soon</span>
+      </a></li>
+      <li><a href="#journal" data-view="journal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h6M9 12h6"/></svg>
+        Journal
+        <span class="soon">Soon</span>
+      </a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <span class="pulse" style="animation-duration:2.6s"></span> Day 1 streak
+    </div>
+  </div>
 
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div>
-            <h1 style="color: #2c3e50; font-size: 2.5rem; font-weight: bold;">MindSet</h1>
-            <p style="color: #34495e; font-size: 1.2rem;">Success begins with believing you can.</p>
-        </div>
-    </header>
+  <div class="app">
 
-    <section id="services" class="content-section grey lighten-3">
-        <div class="container">
-            <h2>Our Services</h2>
-                <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">mindset matter</span>
-                            <p>Focus on progress, not perfection.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="embeddednext.github.io/mindset/">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="eyebrow"><span class="pulse"></span> Daily discipline</div>
+        <h1>Believe it, <em>then</em> build it.</h1>
+        <p>Success begins in the mind before it shows up anywhere else.</p>
+        <div class="cta-row">
+          <a href="https://embeddednext.github.io/mindset/" class="cta">Read more</a>
+          <span class="cta-sub">A short read on staying focused</span>
         </div>
+      </div>
     </section>
 
-    <!-- Content Sections -->
-    <section id="affirmations" class="content-section">
-        <div class="container">
-            <h2>Bruce Lee Affirmations</h2>
-            <h3>I am the best.</h3>
-            <h3>I can do it alone.</h3>
-            <h3>God is always with me.</h3>
-            <h3>I am a winner.</h3>
-            <h3>Today is my day.</h3>
-        </div>
+    <section class="view" id="view-affirmations">
+      <div class="panel">
+        <div class="panel-label">Bruce Lee — Affirmations</div>
+        <ul class="affirm-list">
+          <li>I am the best.</li>
+          <li>I can do it alone.</li>
+          <li>God is always with me.</li>
+          <li>I am a winner.</li>
+          <li>Today is my day.</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- Importing Materialize JS from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Initialize any JavaScript components if needed -->
-    <script>
-        // Example: Initialize any JavaScript components here if needed
-    </script>
+    <section class="view" id="view-quotes">
+      <div class="hero">
+        <div class="eyebrow"><span class="pulse"></span> Daily discipline</div>
+        <h1>Believe it, <em>then</em> build it.</h1>
+        <p>Q</p>
+        <div class="cta-row">
+          <a href="https://embeddednext.github.io/mindset/" class="cta">Read more</a>
+          <span class="cta-sub">A short read on staying focused</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-journal">
+      <div class="hero">
+        <div class="eyebrow"><span class="pulse"></span> Daily discipline</div>
+        <h1>Believe it, <em>then</em> build it.</h1>
+        <p>J</p>
+        <div class="cta-row">
+          <a href="https://embeddednext.github.io/mindset/" class="cta">Read more</a>
+          <span class="cta-sub">A short read on staying focused</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>MindSet · Success begins with believing you can</footer>
+  </div>
+
+  <script>
+    const links = document.querySelectorAll('.side-nav a');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const target = link.dataset.view;
+        document.querySelectorAll('.view').forEach(view => {
+          view.classList.toggle('active', view.id === 'view-' + target);
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
