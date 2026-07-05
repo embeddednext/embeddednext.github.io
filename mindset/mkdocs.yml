@@ -20,7 +20,8 @@ theme:
         name: Switch to light mode
 
 nav:
-- Home  : "https://embeddednext.github.io/tech"
-- Altium : "index.md"
-- PI MX8 :
-  - Introduction and Overview : "ch1.md"
+- Home  : "https://embeddednext.github.io/mindset"
+- Elite :
+  - Levels of Mindset : "1mindset.md"
+  - Levels of Discipline : "2discipline.md"
+  - Levels of Business Growth : "3business.md"
